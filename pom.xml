@@ -12,7 +12,6 @@
 		<plugins>
 	      <plugin>
 	        <artifactId>maven-compiler-plugin</artifactId>
-	        <version>3.5.1</version>
 	        <executions>
 	          <execution>
 	            <id>default-compile</id>
@@ -21,8 +20,8 @@
 	              <goal>compile</goal>
 	            </goals>
 	            <configuration>
-	              <source>12</source>
-	              <target>12</target>
+	              <source>8</source>
+	              <target>8</target>
 	              <encoding>Windows-1251</encoding>
 	              <meminitial>128m</meminitial>
 	              <maxmem>512m</maxmem>

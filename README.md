@@ -20,7 +20,7 @@
 
 В реализации предполагается, что строки не пустые и там валидные IPv4 адреса. 
 
-Файл для теста https://ecwid-vgv-storage.s3.eu-central-1.amazonaws.com/ip_addresses.zip. Внимание – файл весит около 20Gb, а распаковывается приблизительно в 120Gb.
+[Файл для теста](https://ecwid-vgv-storage.s3.eu-central-1.amazonaws.com/ip_addresses.zip). Внимание – файл весит около 20Gb, а распаковывается приблизительно в 120Gb.
 
 ## Запуск 
 java ru.viktork.util.IPAddrCounter <путь к файлу>
