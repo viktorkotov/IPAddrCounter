@@ -21,18 +21,20 @@ public class IPAddrCounter {
 
         byte[] indexes = new byte[536870912]; // allocate all index values
 
-        int[] values = new int[4];
+        //IP parts 127.27.2.3 -> 127 = values[0], 27 = values[1], 2 = values[2], 3 = values[3]
+        int[] values = new int[4]; 
         
         // array for
         // 0 - unique IP's
         // 1 - double IP's
         // 2 - all IP's
         long[] count = new long[3];
+        
         try (Stream<String> lines = Files.lines(new File(args[0]).toPath());) {
             lines.forEach( line -> {
                 Arrays.fill(values, 0); // flash old values
                 
-                getValues(line, values); // fill IP values
+                getIPValues(line, values); // fill IP values
                 
                 // calculate index
                 long index = values[0] << 8;
@@ -81,7 +83,7 @@ public class IPAddrCounter {
         );
     }
 
-    private static void getValues(String line, int[] result) {
+    private static void getIPValues(String line, int[] result) {
         StringBuilder str = new StringBuilder();
         int count = 0;
         for( char ch: line.toCharArray() ) {
