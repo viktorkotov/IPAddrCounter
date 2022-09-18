@@ -22,7 +22,7 @@
 	            <configuration>
 	              <source>8</source>
 	              <target>8</target>
-	              <encoding>Windows-1251</encoding>
+	              <encoding>UTF-8</encoding>
 	              <meminitial>128m</meminitial>
 	              <maxmem>512m</maxmem>
 	              <fork>false</fork>

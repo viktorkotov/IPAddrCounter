@@ -19,16 +19,15 @@ public class IPAddrCounter {
 
         long start = System.nanoTime();
 
-        // if(args.length == 0) {
-        //     System.out.println("Usage: java ru.viktork.util.IPAddrCounter <path to file>");
-        //     return;
-        // }
-
         byte[] indexes = new byte[536870912]; // allocate all index values
 
         int[] values = new int[4];
         
-        long[] count = new long[1];
+        // array for
+        // 0 - unique IP's
+        // 1 - double IP's
+        // 2 - all IP's
+        long[] count = new long[3];
         try (Stream<String> lines = Files.lines(new File(args[0]).toPath());) {
             lines.forEach( line -> {
                 Arrays.fill(values, 0); // flash old values
@@ -70,30 +69,30 @@ public class IPAddrCounter {
         long usedMem = rt.totalMemory() - rt.freeMemory();
         
         double seconds = (double) elapsed / 1000000000;
-        double unic_percent = (count[0]*100)/count[2];
-        double not_unic_percent = (count[1]*100)/count[2];
+        double unicPercent = (count[0]*100d) / count[2];
+        double notUnicPercent = (count[1]*100d) / count[2];
         
         System.out.println(
             "Всего IP проверено " + count[2] + " из них: " +
-            "\n    1.уникальных:      " + count[0] + " (" + String.format("%.0f", unic_percent) + "%)" +
-            "\n    2.дублирующих:     " + count[1] + " (" + String.format("%.0f", not_unic_percent) + "%)" +
+            "\n    1.уникальных:      " + count[0] + " (" + String.format("%.0f", unicPercent) + "%)" +
+            "\n    2.дублирующих:     " + count[1] + " (" + String.format("%.0f", notUnicPercent) + "%)" +
             "\nИспользовано: \n    1.памяти:          " + (usedMem / (1024 * 1024)) + " MiB" +
             "\n    2.времени:         " + String.format("%.2f", (seconds/60)) + " мин (" + String.format("%.2f", seconds) + " с)"
         );
     }
 
     private static void getValues(String line, int[] result) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         int count = 0;
         for( char ch: line.toCharArray() ) {
             if(ch == '.') {
-                result[count++] = Integer.parseInt(str);
-                str = "";
+                result[count++] = Integer.parseInt(str.toString());
+                str.setLength(0);
             }
             else {
-                str += ch;
+                str.append(ch);
             }
         }
-        result[count] = Integer.parseInt(str);
+        result[count] = Integer.parseInt(str.toString());
     }
 }
